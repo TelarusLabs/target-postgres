@@ -325,7 +325,7 @@ class PostgresTarget(SQLInterface):
                 self.setup_table_mapping_cache(cur)
                 root_table_name = self.add_table_mapping(cur, (stream_buffer.stream,), {})
                 current_table_schema = self.get_table_schema(cur, root_table_name)
-
+                self.LOGGER.info("{} - root table name: ".format(root_table_name))
                 if not current_table_schema:
                     self.LOGGER.error('{} - Table for stream does not exist'.format(
                         stream_buffer.stream))

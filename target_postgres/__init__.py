@@ -1,4 +1,4 @@
-from singer import utils
+from singer import utils, get_logger
 import psycopg2
 
 from target_postgres.postgres import MillisLoggingConnection, PostgresTarget
@@ -10,6 +10,7 @@ REQUIRED_CONFIG_KEYS = [
 
 
 def main(config, input_stream=None):
+    LOGGER = get_logger()
     with psycopg2.connect(
             connection_factory=MillisLoggingConnection,
             host=config.get('postgres_host', 'localhost'),
@@ -33,12 +34,17 @@ def main(config, input_stream=None):
             before_run_sql=config.get('before_run_sql'),
             after_run_sql=config.get('after_run_sql'),
         )
-
+        LOGGER.info(f"postgres_schema: {config.get('postgres_schema', 'public')}")
+        LOGGER.info(f"logging_level: {config.get('logging_level')}")
+        LOGGER.info(f"persist_empty_tables: {config.get('persist_empty_tables')}")
+        LOGGER.info(f"add_upsert_indexes: {config.get('add_upsert_indexes', True)}")
+        LOGGER.info(f"before_run_sql: {config.get('before_run_sql')}")
+        LOGGER.info(f"after_run_sql: {config.get('after_run_sql')}")
         if input_stream:
             target_tools.stream_to_target(input_stream, postgres_target, config=config)
         else:
             target_tools.main(postgres_target)
-
+        
 
 def cli():
     args = utils.parse_args(REQUIRED_CONFIG_KEYS)

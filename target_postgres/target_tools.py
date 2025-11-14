@@ -1,7 +1,6 @@
 import http.client
 import io
 import json
-import pkg_resources
 import sys
 import threading
 import decimal
@@ -161,20 +160,21 @@ def _line_handler(state_tracker, target, invalid_records_detect, invalid_records
 
 
 def _send_usage_stats():
-    try:
-        version = pkg_resources.get_distribution('target-postgres').version
-        with http.client.HTTPConnection('collector.singer.io', timeout=10).connect() as conn:
-            params = {
-                'e': 'se',
-                'aid': 'singer',
-                'se_ca': 'target-postgres',
-                'se_ac': 'open',
-                'se_la': version,
-            }
-            conn.request('GET', '/i?' + urllib.parse.urlencode(params))
-            conn.getresponse()
-    except:
-        LOGGER.debug('Collection request failed')
+    pass
+    # try:
+    #     version = pkg_resources.get_distribution('target-postgres').version
+    #     with http.client.HTTPConnection('collector.singer.io', timeout=10).connect() as conn:
+    #         params = {
+    #             'e': 'se',
+    #             'aid': 'singer',
+    #             'se_ca': 'target-postgres',
+    #             'se_ac': 'open',
+    #             'se_la': version,
+    #         }
+    #         conn.request('GET', '/i?' + urllib.parse.urlencode(params))
+    #         conn.getresponse()
+    # except:
+    #     LOGGER.debug('Collection request failed')
 
 
 def _async_send_usage_stats():
