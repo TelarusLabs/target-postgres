@@ -21,13 +21,9 @@ classifiers = [
 license = "MIT"
 packages = [{include = "target_postgres"}]
 
-[project.urls]
-"Homepage" = "https://github.com/datamill-co/target-postgres"
-"Bug Tracker" = "https://github.com/datamill-co/target-postgres/issues"
-
 
 [tool.poetry.dependencies]
-python = ">=3.7"
+python = ">=3.9"
 arrow = "^1.2.3"
 psycopg2-binary = "^2.9.5"
 singer-python = "^5.9.0"
