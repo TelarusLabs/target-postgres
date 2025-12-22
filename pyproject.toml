@@ -25,8 +25,9 @@ packages = [{include = "target_postgres"}]
 [tool.poetry.dependencies]
 python = ">=3.9"
 arrow = "^1.2.3"
-psycopg2-binary = "^2.9.5"
+psycopg2-binary = "^2.9.10"
 singer-python = "^5.9.0"
+setuptools = "*"
 
 [tool.poetry.group.tests]
 optional = true
